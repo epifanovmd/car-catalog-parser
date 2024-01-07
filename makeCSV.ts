@@ -67,18 +67,21 @@ const marks: Marks[] = json as Marks[];
             generation.yearStart,
             generation.yearStop,
 
-            `${mark.id}_${model.id}_${generation.id}_${modification.id}`,
-            modification.name,
             modification.bodyType.id,
             modification.bodyType.name,
-            modification.driveType.id,
-            modification.driveType.label,
+
             modification.engineType.id,
             modification.engineType.label,
+
+            modification.driveType.id,
+            modification.driveType.label,
+
             modification.gearBoxType.id,
             modification.gearBoxType.label,
 
-            `${mark.id}_${model.id}_${generation.id}_${modification.id}_${modification.characteristics.id}`,
+            `${mark.id}_${model.id}_${generation.id}_${modification.id}`,
+            modification.name,
+
             ...characteristic_keys.map(key => modification.characteristics[key])
           ];
 
