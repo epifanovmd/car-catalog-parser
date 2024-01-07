@@ -1,0 +1,27 @@
+{
+  "scripts": {
+    "dev": "nodemon",
+    "start": "ts-node --transpileOnly ./index.ts",
+    "CSV": "ts-node --transpileOnly ./makeCSV.ts",
+    "upload": "scp ./base.csv root@45.15.157.199:~/auto-sale-server/pgadmin/db_backup"
+  },
+  "dependencies": {
+    "@types/morgan": "^1.9.9",
+    "axios": "^1.6.4",
+    "csv-string": "^4.1.1",
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6",
+    "koa": "^2.15.0",
+    "koa2-connect": "^1.0.2",
+    "morgan": "^1.10.0",
+    "node-html-parser": "^6.1.12"
+  },
+  "devDependencies": {
+    "@types/http-proxy-middleware": "^1.0.0",
+    "@types/koa": "^2.13.12",
+    "@types/node": "^20.10.6",
+    "nodemon": "^3.0.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3"
+  }
+}
