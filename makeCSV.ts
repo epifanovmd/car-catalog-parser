@@ -11,7 +11,6 @@ const characteristic_keys = [
   "driveType",
   "engineCapacity",
   "enginePower",
-  "name",
   "numberOfSeats",
   "length",
   "width",
@@ -59,10 +58,10 @@ const marks: Marks[] = json as Marks[];
             mark.name,
             mark.isPopular,
 
-            `${mark.id}_${model.id}`,
+            `${mark.id}${model.id}`,
             model.name,
 
-            `${mark.id}_${model.id}_${generation.id}`,
+            `${mark.id}${model.id}${generation.id}`,
             generation.name,
             generation.yearStart,
             generation.yearStop,
@@ -74,15 +73,27 @@ const marks: Marks[] = json as Marks[];
             modification.engineType.label,
 
             modification.driveType.id,
-            modification.driveType.label,
+            modification.driveType.label.replace("привод", "").trim(),
 
             modification.gearBoxType.id,
             modification.gearBoxType.label,
 
-            `${mark.id}_${model.id}_${generation.id}_${modification.id}`,
+            `${mark.id}${model.id}${modification.id}`,
             modification.name,
 
-            ...characteristic_keys.map(key => modification.characteristics[key])
+            ...characteristic_keys.map(key => {
+              if (key === 'enginePower' || key === 'maxSpeed' || key === "acceleration0100KmH" ||
+                key === "curbWeight" || key === "fuelTankCapacity" || key === "maxTrunkCapacity" || key === "minTrunkCapacity" ||
+              key === "cylinderBore" || key === "strokeCycle" || key === "cityDrivingFuelConsumptionPer100Km" || key === "highwayDrivingFuelConsumptionPer100Km") {
+                const digits = modification.characteristics[key]?.match(/[0-9]+\.?[0-9]+/);
+                if (!digits) {
+                  return '';
+                }
+
+                return digits[0];
+              }
+              return modification.characteristics[key]
+            })
           ];
 
           fs.appendFile('./base.csv', CSV.stringify(row));
