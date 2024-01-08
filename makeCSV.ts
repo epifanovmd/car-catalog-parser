@@ -92,7 +92,15 @@ const marks: Marks[] = json as Marks[];
 
                 return digits[0];
               }
-              return modification.characteristics[key]
+
+              if (key === "fuel") {
+                return modification.characteristics[key]?.replace(" ", "")
+                  .replace("дизельное топливо", "ДТ")
+                  .replace("Газ (Бензин)", "Бензин, Газ")
+                  .replace("бензин", "Бензин")
+              }
+
+              return modification.characteristics[key]?.replace(" ", "")
             })
           ];
 
@@ -113,3 +121,6 @@ const sorter = (function (a, b) {
     return 1;
   return 0;
 })
+
+const t = "Газ (Бензин)";
+const r = "Газ (Бензин) ";
